@@ -103,7 +103,19 @@ class Program
         {
             player1.HP = player1.HP - player1.Damage;
             Console.WriteLine($"-{player1.Damage}");
-            player1.Damage = 0; //Resets damage to 0
+            player1.Damage = 0; 
+        }
+        if (player1.Heal > 0)
+        {
+            player1.HP = player1.HP + player1.Heal;
+            Console.WriteLine($"Healed for {player1.Heal}");
+            player1.Heal = 0; //Resets heal to 0
+        }
+        if (enemy1.Heal > 0)
+        {
+            enemy1.HP = enemy1.HP + enemy1.Heal;
+            Console.WriteLine($"+{enemy1.Heal}");
+            enemy1.Heal = 0; 
         }
         return (player1, enemy1);
     }
@@ -269,6 +281,8 @@ class Program
                 (player1, enemy1) = enemyTurn(player1, enemy1);
                 (run, winner) = getResult(player1, enemy1);
             }
+            if (player1.HP > player1.maxHP) { player1.HP = player1.maxHP; } //Sets HP to max if it exceeds max
+            else if (enemy1.HP > enemy1.maxHP) { enemy1.HP = enemy1.maxHP; }
             turnCount++;
         }
         return winner; //Placeholder to return winner
